@@ -20,7 +20,6 @@ import com.devshield.devshield.exceptions.CustomAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -33,14 +32,14 @@ public class SecurityFilter {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.csrf(AbstractHttpConfigurer::disable)
-            .cors(Customizer.withDefaults())
-            .exceptionHandling(ex -> ex.accessDeniedHandler(customAccessDenialHandler)
-            .authenticationEntryPoint(customAuthenticationEntryPoint))
-            .authorizeHttpRequests(req -> req.requestMatchers("/api/auth/**").permitAll()
-            .anyRequest().authenticated())
-            .sessionManagement(mag -> mag.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .exceptionHandling(ex -> ex.accessDeniedHandler(customAccessDenialHandler)
+                .authenticationEntryPoint(customAuthenticationEntryPoint))
+                .authorizeHttpRequests(req -> req.requestMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated())
+                .sessionManagement(mag -> mag.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

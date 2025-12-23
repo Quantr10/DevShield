@@ -26,13 +26,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String subject;
     private String recipient;
-    
+
     private String body;
 
     @Enumerated(EnumType.STRING)

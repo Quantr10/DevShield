@@ -19,22 +19,22 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AuditorServiceImpl implements AuditorService{
-    
+public class AuditorServiceImpl implements AuditorService {
+
     private final UserRepo userRepo;
     private final AccountRepo accountRepo;
     private final TransactionRepo transactionRepo;
     private final ModelMapper modelMapper;
-    
+
     @Override
     public Map<String, Long> getSystemTotals() {
         long totalUsers = userRepo.count();
         long totalAccounts = accountRepo.count();
         long totalTransactions = transactionRepo.count();
         return Map.of(
-            "totalUsers", totalUsers,
-            "totalAccounts", totalAccounts,
-            "totalTransactions", totalTransactions);
+                "totalUsers", totalUsers,
+                "totalAccounts", totalAccounts,
+                "totalTransactions", totalTransactions);
     }
 
     @Override
@@ -50,14 +50,14 @@ public class AuditorServiceImpl implements AuditorService{
     @Override
     public List<TransactionDTO> findTransactionsByAccountNumber(String accountNumber) {
         return transactionRepo.findByAccount_AccountNumber(accountNumber).stream()
-            .map(transaction -> modelMapper.map(transaction, TransactionDTO.class))
-            .collect(Collectors.toList());
+                .map(transaction -> modelMapper.map(transaction, TransactionDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<TransactionDTO> findTransactionById(Long transactionId) {
         return transactionRepo.findById(transactionId)
-            .map(transaction -> modelMapper.map(transaction, TransactionDTO.class));
+                .map(transaction -> modelMapper.map(transaction, TransactionDTO.class));
     }
-    
+
 }

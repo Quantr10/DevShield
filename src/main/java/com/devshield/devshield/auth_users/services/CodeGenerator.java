@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class CodeGenerator {
+
     private final PasswordResetCodeRepo passwordResetCodeRepo;
 
     private static final String ALPHA_NUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

@@ -16,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
 public class AccountController {
+
     private final AccountService accountService;
 
     @GetMapping("/me")
     public ResponseEntity<Response<?>> getMyAccounts() {
         return ResponseEntity.ok(accountService.getMyAccounts());
     }
-
 
     @DeleteMapping("/close/{accountNumber}")
     public ResponseEntity<Response<?>> closeAccount(@PathVariable String accountNumber) {

@@ -34,7 +34,6 @@ public class NotificationDTO {
 
     private LocalDateTime createdAt;
 
-
     //for values/variables to be passed into email template to send
     private String templateName;
     private Map<String, Object> templateVariables;

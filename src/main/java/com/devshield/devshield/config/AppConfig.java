@@ -1,6 +1,5 @@
 package com.devshield.devshield.config;
 
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +9,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class AppConfig {
+
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -18,10 +18,10 @@ public class AppConfig {
         templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
-        
+
         templateEngine.setTemplateResolver(templateResolver);
         return templateEngine;
-    }   
+    }
 
     @Bean
     public ModelMapper modelMapperConfig() {

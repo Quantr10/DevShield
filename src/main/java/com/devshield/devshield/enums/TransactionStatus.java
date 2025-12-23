@@ -1,7 +1,7 @@
 package com.devshield.devshield.enums;
 
 public enum TransactionStatus {
-    SUCCESS, 
+    SUCCESS,
     FAILED,
     PENDING
 }

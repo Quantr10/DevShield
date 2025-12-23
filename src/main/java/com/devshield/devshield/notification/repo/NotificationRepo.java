@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.devshield.devshield.notification.entity.Notification;
 
-public interface NotificationRepo extends JpaRepository<Notification, Long>{
-    
+public interface NotificationRepo extends JpaRepository<Notification, Long> {
+
 }

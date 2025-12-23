@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepo userRepo;
 
@@ -23,5 +23,5 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         return AuthUser.builder().user(user).build();
     }
-    
+
 }

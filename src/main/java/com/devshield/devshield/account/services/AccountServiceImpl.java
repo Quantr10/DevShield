@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class AccountServiceImpl implements AccountService {
+
     private final AccountRepo accountRepo;
     private final UserService userService;
     private final ModelMapper modelMapper;
@@ -42,14 +43,14 @@ public class AccountServiceImpl implements AccountService {
         String accountNumber = generateAccountNumber();
 
         Account account = Account.builder()
-            .accountNumber(accountNumber)
-            .accountType(accountType)
-            .currency(Currency.USD)
-            .balance(BigDecimal.ZERO)
-            .status(AccountStatus.ACTIVE)
-            .user(user)
-            .createdAt(LocalDateTime.now())
-            .build();
+                .accountNumber(accountNumber)
+                .accountType(accountType)
+                .currency(Currency.USD)
+                .balance(BigDecimal.ZERO)
+                .status(AccountStatus.ACTIVE)
+                .user(user)
+                .createdAt(LocalDateTime.now())
+                .build();
 
         return accountRepo.save(account);
 
@@ -59,28 +60,28 @@ public class AccountServiceImpl implements AccountService {
     public Response<List<AccountDTO>> getMyAccounts() {
         User user = userService.getCurrentLoggedInUser();
         List<AccountDTO> accounts = accountRepo.findByUserId(user.getId())
-            .stream()
-            .map(account -> modelMapper.map(account, AccountDTO.class))
-            .toList();
+                .stream()
+                .map(account -> modelMapper.map(account, AccountDTO.class))
+                .toList();
 
         return Response.<List<AccountDTO>>builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("User accounts fetched successfully")
-            .data(accounts)
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("User accounts fetched successfully")
+                .data(accounts)
+                .build();
     }
 
     @Override
     public Response<?> closeAccount(String accountNumber) {
         User user = userService.getCurrentLoggedInUser();
         Account account = accountRepo.findByAccountNumber(accountNumber)
-            .orElseThrow(() -> new NotFoundException("Account Not Found"));
+                .orElseThrow(() -> new NotFoundException("Account Not Found"));
 
-        if(!user.getAccounts().contains(account)) {
-            throw new NotFoundException("Account doesn't belong to you" );
+        if (!user.getAccounts().contains(account)) {
+            throw new NotFoundException("Account doesn't belong to you");
         }
 
-        if(account.getBalance().compareTo(BigDecimal.ZERO) > 0) {
+        if (account.getBalance().compareTo(BigDecimal.ZERO) > 0) {
             throw new BadRequestException("Account balance must be zero to close the account");
         }
         account.setStatus(AccountStatus.CLOSED);
@@ -88,9 +89,9 @@ public class AccountServiceImpl implements AccountService {
         accountRepo.save(account);
 
         return Response.builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Account closed successfully")
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Account closed successfully")
+                .build();
     }
 
     private String generateAccountNumber() {

@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionRequest {
+
     private TransactionType transactionType;
     private BigDecimal amount;
     private String accountNumber;

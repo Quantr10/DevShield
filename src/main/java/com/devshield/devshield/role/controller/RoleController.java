@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ADMIN')")
 public class RoleController {
+
     private final RoleService roleService;
 
     @PostMapping

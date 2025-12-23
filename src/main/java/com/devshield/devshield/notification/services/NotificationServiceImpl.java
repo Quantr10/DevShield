@@ -34,19 +34,19 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendEmail(NotificationDTO notificationDTO, User user) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, 
-                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-                StandardCharsets.UTF_8.name()
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
+                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name()
             );
             helper.setTo(notificationDTO.getRecipient());
             helper.setSubject(notificationDTO.getSubject());
 
             //use template if provided
-            if(notificationDTO.getTemplateName() != null) {
+            if (notificationDTO.getTemplateName() != null) {
                 Context context = new Context();
                 context.setVariables(notificationDTO.getTemplateVariables());
                 String htmlContent = templateEngine.process(notificationDTO.getTemplateName(), context);
-                helper.setText(htmlContent, true );
+                helper.setText(htmlContent, true);
             } else {
                 //if no template, send text body directly 
                 helper.setText(notificationDTO.getBody(), true);
@@ -55,12 +55,12 @@ public class NotificationServiceImpl implements NotificationService {
             mailSender.send(mimeMessage);
             // save to db
             Notification notificationToSave = Notification.builder()
-                .recipient(notificationDTO.getRecipient())
-                .subject(notificationDTO.getSubject())
-                .body(notificationDTO.getBody())
-                .type(NotificationType.EMAIL)
-                .user(user)
-                .build();
+                    .recipient(notificationDTO.getRecipient())
+                    .subject(notificationDTO.getSubject())
+                    .body(notificationDTO.getBody())
+                    .type(NotificationType.EMAIL)
+                    .user(user)
+                    .build();
 
             notificationRepo.save(notificationToSave);
 
@@ -68,5 +68,5 @@ public class NotificationServiceImpl implements NotificationService {
             log.error(e.getMessage());
         }
     }
-    
+
 }

@@ -24,13 +24,11 @@ public class AuditorController {
 
     private final AuditorService auditorService;
 
-
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('AUDITOR')")
     @GetMapping("/totals")
     public ResponseEntity<Map<String, Long>> getSystemTotals() {
         return ResponseEntity.ok(auditorService.getSystemTotals());
     }
-
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('AUDITOR')")
     @GetMapping("/users")
@@ -42,7 +40,6 @@ public class AuditorController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-
     @GetMapping("/accounts")
     public ResponseEntity<AccountDTO> findAccountDetailsByAccountNumber(@RequestParam String accountNumber) {
 
@@ -51,7 +48,6 @@ public class AuditorController {
         return accountDTO.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('AUDITOR')")
     @GetMapping("/transactions/by-account")
@@ -65,7 +61,6 @@ public class AuditorController {
         return ResponseEntity.ok(transactionDTOList);
     }
 
-
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('AUDITOR')")
     @GetMapping("/transactions/by-id")
     public ResponseEntity<TransactionDTO> getTransactionById(@RequestParam Long id) {
@@ -75,6 +70,5 @@ public class AuditorController {
         return transactionDTO.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
 
 }

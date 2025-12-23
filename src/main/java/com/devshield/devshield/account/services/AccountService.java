@@ -9,8 +9,9 @@ import com.devshield.devshield.enums.AccountType;
 import com.devshield.devshield.res.Response;
 
 public interface AccountService {
+
     Account createAccount(AccountType accountType, User user);
-    
+
     Response<List<AccountDTO>> getMyAccounts();
 
     Response<?> closeAccount(String accountNumber);
