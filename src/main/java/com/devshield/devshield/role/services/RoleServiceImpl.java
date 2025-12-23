@@ -27,24 +27,24 @@ public class RoleServiceImpl implements RoleService {
         }
         Role savedRole = roleRepo.save(roleRequest);
         return Response.<Role>builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Role saved successfully")
-            .data(savedRole)
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Role saved successfully")
+                .data(savedRole)
+                .build();
     }
 
     @Override
     public Response<Role> updateRole(Role roleRequest) {
         Role role = roleRepo.findById(roleRequest.getId())
-            .orElseThrow(() -> new NotFoundException("Role not found"));
+                .orElseThrow(() -> new NotFoundException("Role not found"));
         role.setName(roleRequest.getName());
         Role updatedRole = roleRepo.save(role);
 
         return Response.<Role>builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Role updated successfully")
-            .data(updatedRole)
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Role updated successfully")
+                .data(updatedRole)
+                .build();
     }
 
     @Override
@@ -52,10 +52,10 @@ public class RoleServiceImpl implements RoleService {
         List<Role> roles = roleRepo.findAll();
 
         return Response.<List<Role>>builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Role retrieved successfully")
-            .data(roles)
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Role retrieved successfully")
+                .data(roles)
+                .build();
     }
 
     @Override
@@ -65,8 +65,8 @@ public class RoleServiceImpl implements RoleService {
         }
         roleRepo.deleteById(id);
         return Response.builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Role deleted successfully")
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Role deleted successfully")
+                .build();
     }
 }

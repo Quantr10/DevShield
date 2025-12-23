@@ -24,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class AuthFilter extends OncePerRequestFilter{
+public class AuthFilter extends OncePerRequestFilter {
+
     private final TokenService tokenService;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomUserDetailsService customUserDetailsService;
@@ -33,12 +34,11 @@ public class AuthFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getTokenFromRequest(request);
 
-        if(token != null) {
+        if (token != null) {
             String email;
             try {
                 email = tokenService.getUsernameFromToken(token);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 log.error("Exception occured while extracting username from token");
                 AuthenticationException authenticationException = new BadCredentialsException(e.getMessage());
                 customAuthenticationEntryPoint.commence(request, response, authenticationException);
@@ -47,13 +47,13 @@ public class AuthFilter extends OncePerRequestFilter{
 
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
 
-            if(StringUtils.hasText(email) && tokenService.isTokenValid(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            if (StringUtils.hasText(email) && tokenService.isTokenValid(token, userDetails)) {
+                UsernamePasswordAuthenticationToken authenticationToken
+                        = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            } 
-        } 
+            }
+        }
 
         try {
             filterChain.doFilter(request, response);

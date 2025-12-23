@@ -16,7 +16,7 @@ import lombok.Data;
 @Builder
 @Data
 public class AuthUser implements UserDetails {
-    
+
     private User user;
 
     @Override
@@ -25,7 +25,8 @@ public class AuthUser implements UserDetails {
     }
 
     @Override
-    public @Nullable String getPassword() {
+    public @Nullable
+    String getPassword() {
         return user.getPassword();
     }
 
@@ -33,5 +34,5 @@ public class AuthUser implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
-    
+
 }

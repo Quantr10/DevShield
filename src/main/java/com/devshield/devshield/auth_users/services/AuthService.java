@@ -7,8 +7,12 @@ import com.devshield.devshield.auth_users.dtos.ResetPasswordRequest;
 import com.devshield.devshield.res.Response;
 
 public interface AuthService {
+
     Response<String> register(RegistrationRequest request);
+
     Response<LoginResponse> login(LoginRequest loginRequest);
+
     Response<?> forgetPassword(String email);
+
     Response<?> updatePasswordViaResetCode(ResetPasswordRequest requestPasswordRequest);
 }

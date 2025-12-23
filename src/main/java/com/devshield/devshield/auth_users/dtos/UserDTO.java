@@ -1,6 +1,5 @@
 package com.devshield.devshield.auth_users.dtos;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class UserDTO {
     private String phoneNumber;
 
     private String email;
-    
+
     @JsonIgnore
     private String password;
     private String profilePictureUrl;

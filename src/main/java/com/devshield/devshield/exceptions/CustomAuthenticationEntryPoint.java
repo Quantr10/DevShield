@@ -1,6 +1,5 @@
 package com.devshield.devshield.exceptions;
 
-
 import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
@@ -22,11 +21,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     private final ObjectMapper objectMapper;
 
-
     @Override
     public void commence(HttpServletRequest request,
-                         HttpServletResponse response,
-                         AuthenticationException authException)
+            HttpServletResponse response,
+            AuthenticationException authException)
             throws IOException, ServletException {
 
         Response<?> errorResponse = Response.builder()

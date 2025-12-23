@@ -8,7 +8,6 @@ import com.devshield.devshield.auth_users.dtos.UserDTO;
 import com.devshield.devshield.auth_users.entity.User;
 import com.devshield.devshield.res.Response;
 
-
 public interface UserService {
 
     User getCurrentLoggedInUser();

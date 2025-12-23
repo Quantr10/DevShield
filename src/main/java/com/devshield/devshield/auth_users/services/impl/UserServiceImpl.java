@@ -37,18 +37,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final NotificationService notificationService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    
+
     private final S3Service s3Service;
 
     // save images to backend root folder
     // private final String uploadDir = "uploads/profile-pictures/";
-
     // save images to frontend public folder
     private final String uploadDir = "D:/Projects/DevShield-frontend/public/profile-pictures/";
 
@@ -111,18 +110,18 @@ public class UserServiceImpl implements UserService{
         templateVariables.put("name", user.getFirstName());
 
         NotificationDTO notificationDTO = NotificationDTO.builder()
-            .recipient(user.getEmail())
-            .subject("Your Password Was Successfully Changed")
-            .templateName("password-change")
-            .templateVariables(templateVariables)
-            .build();
-        
+                .recipient(user.getEmail())
+                .subject("Your Password Was Successfully Changed")
+                .templateName("password-change")
+                .templateVariables(templateVariables)
+                .build();
+
         notificationService.sendEmail(notificationDTO, user);
 
         return Response.builder()
-            .statusCode(HttpStatus.OK.value())
-            .message("Password Changed successfully")
-            .build();
+                .statusCode(HttpStatus.OK.value())
+                .message("Password Changed successfully")
+                .build();
     }
 
     @Override
@@ -136,7 +135,7 @@ public class UserServiceImpl implements UserService{
             }
             if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
                 Path oldFile = Paths.get(user.getProfilePictureUrl());
-                if(Files.exists(oldFile)) {
+                if (Files.exists(oldFile)) {
                     Files.delete(oldFile);
                 }
             }
@@ -150,22 +149,20 @@ public class UserServiceImpl implements UserService{
             Path filePath = uploadPath.resolve(newFileName);
 
             Files.copy(file.getInputStream(), filePath);
-            
+
             //this is for backend
             // String fileUrl = uploadDir + newFileName;
-
             //this is for frontend
             String fileUrl = "profile-pictures/" + newFileName;
-
 
             user.setProfilePictureUrl(fileUrl);
             userRepo.save(user);
 
             return Response.builder()
-                .statusCode(HttpStatus.OK.value())
-                .message("Profile picture uploaded successfully")
-                .data(fileUrl)
-                .build();
+                    .statusCode(HttpStatus.OK.value())
+                    .message("Profile picture uploaded successfully")
+                    .data(fileUrl)
+                    .build();
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -175,7 +172,7 @@ public class UserServiceImpl implements UserService{
     public Response<?> uploadProfilePictureToS3(MultipartFile file) {
         User user = getCurrentLoggedInUser();
         try {
-            if(user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
+            if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
                 s3Service.deleteFile(user.getProfilePictureUrl());
             }
             String s3Url = s3Service.uploadFile(file, "profile-pictures");
@@ -183,10 +180,10 @@ public class UserServiceImpl implements UserService{
             userRepo.save(user);
 
             return Response.builder()
-                .statusCode(HttpStatus.OK.value())
-                .message("Profile picture uploaded successfully")
-                .data(s3Url)
-                .build();
+                    .statusCode(HttpStatus.OK.value())
+                    .message("Profile picture uploaded successfully")
+                    .data(s3Url)
+                    .build();
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }

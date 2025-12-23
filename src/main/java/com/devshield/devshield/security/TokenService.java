@@ -15,16 +15,15 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 
-
 @Service
 public class TokenService {
-    
+
     @Value("${jwt.secret.string}")
     private String JWT_SECRET;
-    
+
     @Value("${jwt.expiration.time}")
     private long JWT_EXPIRATION_TIME;
-    
+
     private SecretKey key;
 
     @PostConstruct
@@ -49,10 +48,10 @@ public class TokenService {
     private <T> T extractClaims(String token, Function<Claims, T> claimsTFunction) {
         return claimsTFunction
                 .apply(Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload());
+                        .verifyWith(key)
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload());
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

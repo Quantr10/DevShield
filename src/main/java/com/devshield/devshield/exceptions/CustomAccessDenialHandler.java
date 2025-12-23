@@ -18,12 +18,13 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 @RequiredArgsConstructor
 public class CustomAccessDenialHandler implements AccessDeniedHandler {
+
     private final ObjectMapper objectMapper;
 
     @Override
     public void handle(HttpServletRequest request,
-                       HttpServletResponse response,
-                       AccessDeniedException accessDeniedException)
+            HttpServletResponse response,
+            AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
         Response<?> errorResponse = Response.builder()
                 .statusCode(HttpStatus.FORBIDDEN.value()) //403

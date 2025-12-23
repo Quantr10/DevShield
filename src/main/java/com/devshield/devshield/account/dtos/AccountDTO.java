@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDTO {
-    
+
     private Long id;
 
     private String accountNumber;
@@ -34,7 +34,7 @@ public class AccountDTO {
     private BigDecimal balance;
 
     private AccountType accountType;
-    
+
     @JsonBackReference// this will not be added to the account dto. It will be ignored because it is a back reference
     private UserDTO user;
 
@@ -50,4 +50,3 @@ public class AccountDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
-
