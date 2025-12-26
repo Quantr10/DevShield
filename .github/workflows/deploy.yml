@@ -19,6 +19,6 @@ jobs:
           username: ec2-user
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            cd /home/ec2-user/projects/DevShield
+            cd /home/ec2-user/projects/DevShield-backend
             git pull
             docker compose up --build -d
