@@ -21,5 +21,4 @@ jobs:
           script: |
             cd /home/ec2-user/projects/DevShield-backend
             git pull
-            docker compose down
             docker compose up --build -d
