@@ -3,7 +3,7 @@
 Spring Boot REST API for the DevShield secure banking platform.  
 Handles authentication, financial transactions, audit logging, and email notifications.
 
-> Frontend Repository → https://github.com/quantr10/devshield-frontend
+> Frontend Repository → https://github.com/quantr10/DevShield-frontend
 
 ---
 
@@ -14,6 +14,7 @@ Handles authentication, financial transactions, audit logging, and email notific
 **Database:** MySQL  
 **DevOps:** Docker, GitHub Actions  
 **Cloud:** AWS S3  
+**Deployment:** AWS EC2  
 **Tools:** Git, Maven, npm 
 
 ---
@@ -22,11 +23,9 @@ Handles authentication, financial transactions, audit logging, and email notific
 
 - Secure Deposit, Withdrawal, and Transfer APIs  
 - JWT Authentication & Role-based Authorization  
-- ACID-compliant transaction handling & audit logging  
-- React SPA with protected routes & real-time feedback  
-- SMTP email notifications (password reset, transaction alerts)  
-- Dockerized full-stack app with GitHub Actions CI/CD  
-- AWS S3 integration & cloud-ready deployment   
+- ACID-compliant transaction handling  
+- Full audit logging for financial operations  
+- SMTP email notifications  
 
 ---
 
@@ -35,21 +34,21 @@ Handles authentication, financial transactions, audit logging, and email notific
 
 ### Clone Repository
 
-```
-git clone https://github.com/quantr10/devshield-backend.git
+```bash
+git clone https://github.com/quantr10/DevShield-backend.git
 cd devshield-backend
 ```
 
 ### Environment Setup
 Copy the example environment file:
 
-```
+```bash
 cp .env.example .env
 ```
 Fill in required credentials in .env.
 
 ### Run with Docker
-```
+```bash
 docker-compose up --build
 ```
 Backend runs at: http://localhost:8090
@@ -58,27 +57,20 @@ Backend runs at: http://localhost:8090
 ```
 mvn spring-boot:run
 ```
+---
+## 🔄 CI/CD
 
-## 🔄 CI/CD Pipeline
+- Automated builds & tests on push to `main`  
+- Docker images created for deployment via GitHub Actions  
 
-On every push to main:
-- Runs backend tests
-- Builds frontend
-- Builds Docker images
-- Ready for automated cloud deployment
-
-Configured in:
-
-```
-.github/workflows/deploy.yml
-```
-
+---
 ## ☁️ Cloud Integration
 
-- AWS S3 for secure file storage
-- Container-ready for AWS EC2 / ECS / Render / Railway
-- CI/CD prepared for zero-downtime deployment
+- Deployed on AWS EC2  
+- AWS S3 for secure file storage  
+- GitHub Actions CI/CD with zero-downtime updates 
 
+---
 ## 📄 License
 
 [MIT](https://choosealicense.com/licenses/mit/)
